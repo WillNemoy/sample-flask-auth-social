@@ -14,7 +14,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from app.models import db, OAuth, User
 
-
+"""
 github_blueprint = make_github_blueprint(
     client_id=os.getenv("GITHUB_ID"),
     client_secret=os.getenv("GITHUB_SECRET"),
@@ -25,7 +25,7 @@ github_blueprint = make_github_blueprint(
         user_required=False,
     ),
 )
-
+"""
 twitter_blueprint = make_twitter_blueprint(
     api_key=os.getenv("TWITTER_ID"),
     api_secret=os.getenv("TWITTER_SECRET"),
@@ -37,7 +37,7 @@ twitter_blueprint = make_twitter_blueprint(
     ),
 )
 
-
+"""
 @oauth_authorized.connect_via(github_blueprint)
 def github_logged_in(blueprint, token):
     info = github.get("/user")
@@ -53,7 +53,7 @@ def github_logged_in(blueprint, token):
             db.session.add(user)
             db.session.commit()
         login_user(user)
-
+"""
 
 @oauth_authorized.connect_via(twitter_blueprint)
 def twitter_logged_in(blueprint, token):

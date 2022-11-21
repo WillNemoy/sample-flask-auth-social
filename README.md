@@ -173,3 +173,7 @@ Once the user is authenticated, all available information can be accessed via `/
 
 --- 
 [Flask Social Login (Twitter & Github)](https://blog.appseed.us/flask-social-authentication-github-twitter/) - Free sample provided by **AppSeed [App Generator](https://appseed.us/app-generator)**.
+
+
+
+conda activate twitter-autho-test-env 
