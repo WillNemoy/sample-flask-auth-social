@@ -6,12 +6,12 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 
 from flask import Flask, jsonify, redirect, render_template, url_for
-from flask_dance.contrib.github import github
+#from flask_dance.contrib.github import github
 from flask_dance.contrib.twitter import twitter
 from flask_login import logout_user, login_required
 
 from app.models import db, login_manager
-from app.oauth import github_blueprint, twitter_blueprint
+from app.oauth import twitter_blueprint #github_blueprint
 
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.secret_key = os.getenv("SECRET_KEY")
 
-app.register_blueprint(github_blueprint, url_prefix="/login")
+#app.register_blueprint(github_blueprint, url_prefix="/login")
 app.register_blueprint(twitter_blueprint, url_prefix="/login")
 
 db.init_app(app)
@@ -29,11 +29,12 @@ login_manager.init_app(app)
 with app.app_context():
     db.create_all()
 
+
 @app.route("/ping")
 def ping():
 
-    if github.authorized:
-        return github.get("/user").json()
+   # if github.authorized:
+    #    return github.get("/user").json()
     
     if twitter.authorized:
         return twitter.get("account/settings.json").json()
@@ -46,10 +47,10 @@ def homepage():
     provider       = None 
     social_account = None
     
-    if github.authorized:
+  #  if github.authorized:
         
-        social_account = github.get("/user").json()['html_url']
-        provider       = 'Github' 
+    #    social_account = github.get("/user").json()['html_url']
+    #    provider       = 'Github' 
     
     if twitter.authorized:
 
@@ -57,7 +58,7 @@ def homepage():
         provider       = 'Twitter' 
 
     return render_template("index.html", social_account=social_account, provider=provider)
-
+"""
 @app.route("/login/github")
 def login_github():
     
@@ -66,7 +67,7 @@ def login_github():
     res = github.get("/user")
     username = res.json()["login"]
     return f"You are @{username} on GitHub"
-
+"""
 @app.route("/login/twitter")
 def login_twitter():
     if not twitter.authorized:
